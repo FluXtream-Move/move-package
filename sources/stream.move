@@ -100,6 +100,17 @@ module self::test19{
         };
         b
     }
+    
+    #[view]
+    public fun getListOfRecieveStreams(user: address): vector<FluXtream_transaction> acquires Reciever_streams {
+        let entire_stream=borrow_global<Reciever_streams>(@self);
+        let b=vector::empty<FluXtream_transaction>();
+        if(table::contains<address,vector<FluXtream_transaction>>(&entire_stream.transactions,user)){
+            let k=table::borrow<address, vector<FluXtream_transaction>>(&entire_stream.transactions,user);
+            b=*k;
+        };
+        b
+    }
     struct FlowingBalance has key,store{
         isPositive:bool,
         isPositive_flowrate:bool,
